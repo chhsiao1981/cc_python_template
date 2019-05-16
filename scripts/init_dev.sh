@@ -29,13 +29,18 @@ rm -rf cc/.git*
 ln -s cc/scripts ./
 
 # post setup - git
-rm -rf .git
 
 # gitignore
 if [ ! -f .gitignore ]
 then
     echo "/cc" >> .gitignore
     echo "/${virtualenv_dir}" >> .gitignore
+fi
+
+# requirements-dev.txt
+if [ ! -f requirements-dev.txt ]
+then
+    cp cc/requirements-dev.txt requirements-dev.txt
 fi
 
 git init; git add .; git commit -m "init dev"
