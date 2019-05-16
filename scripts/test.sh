@@ -1,3 +1,3 @@
 #!/bin/bash
 
-nosetests -v -e _flymake.py --debug=test
+nosetests --rednose -v -e _flymake.py --debug=test
