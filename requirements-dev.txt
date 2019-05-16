@@ -1,0 +1,7 @@
+colorama==0.4.1
+nose==1.3.7
+python-termstyle==0.1.10
+rednose==1.3.0
+sniffer==0.4.0
+termstyle==0.1.11
+yanc==0.3.3
