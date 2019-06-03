@@ -25,25 +25,24 @@ echo "current_dir: "
 pwd
 
 # cp all to current dir
-rm -rf cc/.git*
-ln -s cc/scripts ./
+rm -rf .cc/.git*
+ln -s .cc/scripts ./
 
 # post setup - git
 
 # gitignore
 if [ ! -f .gitignore ]
 then
-    echo "/cc" >> .gitignore
     echo "/${virtualenv_dir}" >> .gitignore
 fi
 
 # requirements-dev.txt
 if [ ! -f requirements-dev.txt ]
 then
-    cp cc/requirements-dev.txt requirements-dev.txt
+    cp .cc/requirements-dev.txt requirements-dev.txt
 fi
 
 git init; git add .; git commit -m "init dev"
 
-# cookie-cutter
-pip install -e git+https://github.com/chhsiao1981/cookiecutter.git#egg=cookiecutter
+# requirements-dev
+pip install -r requirements-dev.txt

@@ -21,6 +21,7 @@ def underscore_to_lower_camelcase(the_str):
     the_list = the_str.split('_')
     return the_list[0] + ''.join([each_str.title() for each_str in the_list[1:]])
 
+
 the_module = sys.argv[1]
 full_name = sys.argv[2]
 project = os.path.basename(os.getcwd())
@@ -86,7 +87,7 @@ the_dict = {
 }
 
 cookiecutter(
-    'cc/' + the_module,
+    '.cc/' + the_module,
     extra_context=the_dict,
     no_input=True,
     overwrite_if_exists=True,
