@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# virtualenv_dir
 if [ "${BASH_ARGC}" != "1" ]
 then
   virtualenv_dir="__"
@@ -11,6 +12,7 @@ the_basename=`basename \`pwd\``
 
 echo "virtualenv_dir: ${virtualenv_dir} the_basename: ${the_basename}"
 
+# virtualenv
 if [ ! -d ${virtualenv_dir} ]
 then
   echo "no ${virtualenv_dir}. will create one"
@@ -41,8 +43,10 @@ if [ ! -f requirements-dev.txt ]
 then
     cp .cc/requirements-dev.txt requirements-dev.txt
 fi
-
-git init; git add .; git commit -m "init dev"
-
-# requirements-dev
 pip install -r requirements-dev.txt
+
+# project_dev
+./scripts/project_dev.sh
+
+# git init
+git init; git add .; git commit -m "init dev"
