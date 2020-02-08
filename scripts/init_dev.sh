@@ -19,7 +19,10 @@ then
   virtualenv -p `which python3` --prompt="[${the_basename}] " "${virtualenv_dir}"
 fi
 
+
+echo -e "\033[1;32m[INFO]\033[m to activate: ${virtualenv_dir}"
 source ${virtualenv_dir}/bin/activate
+
 the_python_path=`which python`
 echo -e "\033[1;32m[INFO]\033[m python: ${the_python_path}"
 
@@ -55,3 +58,4 @@ git init; git add .; git commit -m "init dev"
 
 # done
 echo -e "\033[1;32m[INFO]\033[m done"
+echo -e "\033[1;32m[INFO]\033[m next step: . __/bin/activate"
