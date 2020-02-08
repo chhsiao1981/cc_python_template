@@ -7,7 +7,7 @@ import os
 
 from cookiecutter.main import cookiecutter
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 
 def underscore_to_uppercase(the_str):
