@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from {{cookiecutter.project_name}}.constants import *
-
 import unittest
 import logging
 
