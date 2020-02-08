@@ -23,8 +23,7 @@ source ${virtualenv_dir}/bin/activate
 the_python_path=`which python`
 echo -e "\033[1;32m[INFO]\033[m python: ${the_python_path}"
 
-echo -e "\033[1;32m[INFO]\033[m current_dir: "
-pwd
+echo -e "\033[1;32m[INFO]\033[m current_dir: `pwd`"
 
 # cp all to current dir
 rm -rf .cc/.git*
