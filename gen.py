@@ -7,6 +7,8 @@ import os
 
 from cookiecutter.main import cookiecutter
 
+logging.basicConfig(level=logging.INFO)
+
 
 def underscore_to_uppercase(the_str):
     return the_str.upper()
@@ -26,7 +28,7 @@ the_module = sys.argv[1]
 full_name = sys.argv[2]
 project = os.path.basename(os.getcwd())
 
-logging.warning('full_name: %s project: %s', full_name, project)
+logging.info('full_name: %s project: %s', full_name, project)
 
 full_name_list = [project] + full_name.split('.')
 
