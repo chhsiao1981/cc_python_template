@@ -58,4 +58,4 @@ git init; git add .; git commit -m "init dev"
 
 # done
 echo -e "\033[1;32m[INFO]\033[m done"
-echo -e "\033[1;32m[INFO]\033[m next step: . __/bin/activate"
+echo -e "\033[1;32m[INFO]\033[m remember to: . __/bin/activate"
