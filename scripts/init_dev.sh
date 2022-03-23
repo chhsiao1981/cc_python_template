@@ -48,6 +48,13 @@ then
 fi
 pip install -r requirements-dev.txt
 
+if [ -f .git ]
+then
+  echo -e "\033[1;32[INFO]\033m .git exists. assuming no need to init project."
+  echo -e "\033[1;32[INFO]\033m remeber to: . ${virtualenv_dir}/bin/activate"
+  exit 0
+fi
+
 # project_dev
 echo -e "\033[1;32m[INFO]\033[m to init project"
 ./scripts/project_dev.sh
@@ -58,4 +65,4 @@ git init; git add .; git commit -m "init dev"
 
 # done
 echo -e "\033[1;32m[INFO]\033[m done"
-echo -e "\033[1;32m[INFO]\033[m remember to: . __/bin/activate"
+echo -e "\033[1;32m[INFO]\033[m remember to: . ${virtualenv_dir}/bin/activate"
