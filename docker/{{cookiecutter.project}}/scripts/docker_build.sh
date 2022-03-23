@@ -1,6 +1,7 @@
 #!/bin/bash
 
-branch=`git branch|grep '*'|awk '{print $2}'`
+branch=`git status|head -1|sed -E 's/^HEAD detached at //g'|sed -E 's/^On branch //g'`
 project=`basename \`pwd\``
 
-docker build --squash -t ${project}:${branch} .
+echo -e "\033[1;32m[INFO]\033[m to build ${project}:${branch}"
+docker build -t ${project}:${branch} .

@@ -1,19 +1,28 @@
 #!/bin/bash
 
-if [ "$#" != "2" ]
-then
-  echo "usage: docker_push.sh [registry] [account]"
+# usage
+if [ "$#" -lt "1" ]; then
+  echo "usage: docker_push.sh [[registry]] [account]"
   exit 255
 fi
 
-registry=$1
-account=$2
+# params
+registry=""
+account=${2:-$1}
+if [ "$#" == "2" ]; then
+    registry="${1}/"
+fi
 
-branch=`git branch|grep '*'|awk '{print $2}'`
+# do
+branch=`git status|head -1|sed -E 's/^HEAD detached at //g'|sed -E 's/^On branch //g'`
 project=`basename \`pwd\``
 
-docker tag ${project}:${branch} ${registry}/${account}/${project}:${branch}
-docker push ${registry}/${account}/${project}:${branch}
+echo -e "\033[1;32m[INFO]\033[m to tag ${registry}${account}/${project}:${branch}"
+docker tag ${project}:${branch} ${registry}${account}/${project}:${branch}
+echo -e "\033[1;32m[INFO]\033[m to push ${registry}${account}/${project}:${branch}"
+docker push ${registry}${account}/${project}:${branch}
 
-docker tag ${project}:${branch} ${registry}/${account}/${project}:latest
-docker push ${registry}/${account}/${project}:latest
+echo -e "\033[1;32m[INFO]\033[m to tag ${registry}${account}/${project}:latest"
+docker tag ${project}:${branch} ${registry}${account}/${project}:latest
+echo -e "\033[1;32m[INFO]\033[m to push ${registry}${account}/${project}:latest"
+docker push ${registry}${account}/${project}:latest
