@@ -1,12 +1,7 @@
 #!/bin/bash
 
 # virtualenv_dir
-if [ "${BASH_ARGC}" != "1" ]
-then
-  virtualenv_dir="__"
-else
-  virtualenv_dir="${BASH_ARGV[0]}"
-fi
+virtualenv_dir="${BASH_ARGV[0]:-__}"
 
 the_basename=`basename \`pwd\``
 
@@ -19,7 +14,6 @@ then
   virtualenv -p `which python3` --prompt="[${the_basename}] " "${virtualenv_dir}"
 fi
 
-
 echo -e "\033[1;32m[INFO]\033[m to activate: ${virtualenv_dir}"
 source ${virtualenv_dir}/bin/activate
 
@@ -27,12 +21,6 @@ the_python_path=`which python`
 echo -e "\033[1;32m[INFO]\033[m python: ${the_python_path}"
 
 echo -e "\033[1;32m[INFO]\033[m current_dir: `pwd`"
-
-# cp all to current dir
-rm -rf .cc/.git*
-ln -s .cc/scripts ./
-
-# post setup - git
 
 # gitignore
 if [ ! -f .gitignore ]
@@ -48,21 +36,34 @@ then
 fi
 pip install -r requirements-dev.txt
 
-if [ -f .git ]
-then
-  echo -e "\033[1;32[INFO]\033m .git exists. assuming no need to init project."
-  echo -e "\033[1;32[INFO]\033m remeber to: . ${virtualenv_dir}/bin/activate"
-  exit 0
+# remove .cc/.git
+if [ -e .cc/.git ]; then
+    rm -rf .cc/.git*
+fi
+
+# link .cc/scripts
+if [ ! -e scripts ]; then
+    ln -s .cc/scripts ./
+fi
+
+if [ -e .git ]; then
+    echo -e "\033[1;32m[INFO]\033[m .git exists. assuming no need to init project."
+    echo -e "\033[1;32m[INFO]\033[m remember to: \033[1;32m. ${virtualenv_dir}/bin/activate\033[m"
+    exit 0
 fi
 
 # project_dev
 echo -e "\033[1;32m[INFO]\033[m to init project"
-./scripts/project_dev.sh
+if [ ! -e ${the_basename} ]; then
+    ./scripts/project_dev.sh
+fi
 
 # git init
-echo -e "\033[1;32m[INFO]\033[m to git init"
-git init; git add .; git commit -m "init dev"
+if [ ! -e .git ]; then
+    echo -e "\033[1;32m[INFO]\033[m to git init"
+    git init; git add .; git commit -m "init dev"
+fi
 
 # done
 echo -e "\033[1;32m[INFO]\033[m done"
-echo -e "\033[1;32m[INFO]\033[m remember to: . ${virtualenv_dir}/bin/activate"
+echo -e "\033[1;32m[INFO]\033[m remember to: \033[1;32m. ${virtualenv_dir}/bin/activate\033[m"
