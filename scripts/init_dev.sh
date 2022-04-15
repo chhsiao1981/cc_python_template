@@ -3,15 +3,18 @@
 # virtualenv_dir
 virtualenv_dir="${BASH_ARGV[0]:-__}"
 
+# cc_dir
+cc_dir="${BASH_ARGV[1]:-.cc}"
+
 the_basename=`basename \`pwd\``
 
-echo -e "\033[1;32m[INFO]\033[m virtualenv_dir: ${virtualenv_dir} the_basename: ${the_basename}"
+echo -e "\033[1;32m[INFO]\033[m virtualenv_dir: ${virtualenv_dir} cc dir: ${cc_dir} the_basename: ${the_basename}"
 
 # virtualenv
 if [ ! -d ${virtualenv_dir} ]
 then
   echo -e "\033[1;32m[INFO]\033[m no ${virtualenv_dir}. will create one"
-  virtualenv -p `which python3` --prompt="[${the_basename}] " "${virtualenv_dir}"
+  virtualenv -p `which python3` --prompt="${the_basename}" "${virtualenv_dir}"
 fi
 
 echo -e "\033[1;32m[INFO]\033[m to activate: ${virtualenv_dir}"
@@ -32,18 +35,19 @@ fi
 echo -e "\033[1;32m[INFO]\033[m requirements-dev:"
 if [ ! -f requirements-dev.txt ]
 then
-    cp .cc/requirements-dev.txt requirements-dev.txt
+    cp ${cc_dir}/requirements-dev.txt requirements-dev.txt
 fi
 pip install -r requirements-dev.txt
 
-# remove .cc/.git
-if [ -e .cc/.git ]; then
-    rm -rf .cc/.git*
+# remove ${cc_dir}/.git
+if [ -e ${cc_dir}/.git ]; then
+    rm -rf ${cc_dir}/.git*
 fi
 
-# link .cc/scripts
+# .cc/scripts
 if [ ! -e scripts ]; then
-    ln -s .cc/scripts ./
+    mkdir -p scripts
+    cp ${cc_dir}/scripts/*.sh ./scripts
 fi
 
 if [ -e .git ]; then
