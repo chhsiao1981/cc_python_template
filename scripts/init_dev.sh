@@ -14,7 +14,7 @@ echo -e "\033[1;32m[INFO]\033[m virtualenv_dir: ${virtualenv_dir} cc dir: ${cc_d
 if [ ! -d ${virtualenv_dir} ]
 then
   echo -e "\033[1;32m[INFO]\033[m no ${virtualenv_dir}. will create one"
-  virtualenv -p `which python3` --prompt="[${the_basename}] " "${virtualenv_dir}"
+  virtualenv -p `which python3` --prompt="${the_basename}" "${virtualenv_dir}"
 fi
 
 echo -e "\033[1;32m[INFO]\033[m to activate: ${virtualenv_dir}"
