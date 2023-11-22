@@ -4,10 +4,15 @@ import json
 import sys
 import logging
 import os
+import re
 
 from cookiecutter.main import cookiecutter
 
 logging.basicConfig(level=logging.INFO)
+
+
+def dash_to_underscore(the_str):
+    return re.sub(r'-', '_', the_str)
 
 
 def underscore_to_uppercase(the_str):
@@ -26,9 +31,10 @@ def underscore_to_lower_camelcase(the_str):
 
 the_module = sys.argv[1]
 full_name = sys.argv[2]
-project = os.path.basename(os.getcwd())
+project_with_dash = os.path.basename(os.getcwd())
+project = dash_to_underscore(project_with_dash)
 
-logging.info('full_name: %s project: %s', full_name, project)
+logging.info('full_name: %s project_with_dash: %s project: %s', full_name, project_with_dash, project)
 
 full_name_list = [project] + full_name.split('.')
 
@@ -50,6 +56,7 @@ the_dict = {
 
     'pkg_name': pkg_name,
     'project_name': project_name,
+    'project_name_with_dash': project_with_dash,
 
     'include_pkg': include_pkg,
 
